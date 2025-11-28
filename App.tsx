@@ -4,8 +4,8 @@ import CanvasPreview from './components/CanvasPreview';
 import { CONFIG } from './constants';
 import { FormState } from './types';
 
-// html2canvas is loaded via CDN and exposed globally
-declare const html2canvas: any;
+// html-to-image is loaded via CDN and exposes a global helper
+declare const htmlToImage: any;
 
 function App() {
   const [formState, setFormState] = useState<FormState>({
@@ -66,54 +66,45 @@ function App() {
       await document.fonts.ready;
 
       // Create a temporary container to hold the clone
-      // This container will be exactly the size of the target image
-      // and unaffected by the screen scaling/transform of the preview
       const container = document.createElement('div');
       container.style.position = 'fixed';
-      container.style.left = '-9999px'; // render fully off-screen
+      container.style.left = '0';
       container.style.top = '0';
+      container.style.opacity = '0';
+      container.style.pointerEvents = 'none';
       container.style.width = `${targetWidth}px`;
       container.style.height = `${targetHeight}px`;
       container.style.zIndex = '-9999';
       container.style.overflow = 'hidden';
-      // Force a white background so it's not transparent
       container.style.backgroundColor = '#ffffff';
       
       // Clone the preview DOM node
       const clone = previewRef.current.cloneNode(true) as HTMLElement;
-      
-      // Reset any transforms or margins on the clone to ensure it fills the container 1:1
       clone.style.transform = 'none';
       clone.style.margin = '0';
       clone.style.width = '100%';
       clone.style.height = '100%';
       
-      // Append clone to container, and container to body
       container.appendChild(clone);
       document.body.appendChild(container);
       
-      // Wait a tick so layout & fonts settle inside the off-screen DOM
+      // Wait two animation frames to ensure fonts/layout settle
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
-      // Capture using html2canvas for faithful rendering
-      const canvas = await html2canvas(container, {
-        scale: 1,
+      // Capture using html-to-image
+      const dataUrl = await htmlToImage.toJpeg(clone, {
+        quality: 0.95,
+        backgroundColor: '#ffffff',
+        cacheBust: true,
         width: targetWidth,
         height: targetHeight,
-        windowWidth: targetWidth,
-        windowHeight: targetHeight,
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        allowTaint: true,
-        scrollX: 0,
-        scrollY: 0,
-        x: 0,
-        y: 0
+        canvasWidth: targetWidth,
+        canvasHeight: targetHeight,
+        pixelRatio: 1
       });
 
       // Cleanup
       document.body.removeChild(container);
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
       
       const filename = formState.modelCode 
         ? `Size-Chart-${formState.modelCode}-${formState.canvasFormat}.jpg` 

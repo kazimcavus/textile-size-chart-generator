@@ -147,7 +147,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
               {/* Model Code */}
               <div className="flex flex-col items-end justify-center ml-10">
                 <span className="text-xl text-gray-500 font-bold tracking-widest uppercase mb-2">MODEL KODU</span>
-                <span className="text-5xl font-black text-black tracking-tighter">
+                <span className="text-5xl font-black text-black tracking-tighter whitespace-nowrap leading-none">
                     {formState.modelCode || '-'}
                 </span>
               </div>
