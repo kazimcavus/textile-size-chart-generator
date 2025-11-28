@@ -57,22 +57,62 @@ function App() {
     setIsDownloading(true);
 
     try {
-      const element = previewRef.current;
+      // Define the fixed resolution we want for the output
+      const isLandscape = formState.canvasFormat === 'landscape';
+      const targetWidth = isLandscape ? 1800 : 1200;
+      const targetHeight = isLandscape ? 1200 : 1800;
+
+      // Create a temporary container to hold the clone
+      // This container will be exactly the size of the target image
+      // and unaffected by the screen scaling/transform of the preview
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.left = '-9999px'; // Render off-screen
+      container.style.top = '0';
+      container.style.width = `${targetWidth}px`;
+      container.style.height = `${targetHeight}px`;
+      container.style.zIndex = '-9999';
+      container.style.overflow = 'hidden';
+      // Force a white background so it's not transparent
+      container.style.backgroundColor = '#ffffff';
       
-      // Since the element inside the scaler is ALREADY 1200px / 1800px wide in CSS pixels,
-      // we don't need to calculate scale based on screen width.
-      // We just tell html2canvas to capture it at scale 1 (1:1 mapping of CSS pixels).
+      // Clone the preview DOM node
+      const clone = previewRef.current.cloneNode(true) as HTMLElement;
       
-      const canvas = await html2canvas(element, {
-        scale: 1, // Capture at native CSS resolution (which is already HD)
+      // Reset any transforms or margins on the clone to ensure it fills the container 1:1
+      clone.style.transform = 'none';
+      clone.style.margin = '0';
+      clone.style.width = '100%';
+      clone.style.height = '100%';
+      
+      // Append clone to container, and container to body
+      container.appendChild(clone);
+      document.body.appendChild(container);
+      
+      // Wait a moment for images in the clone to be "ready" (though they are cached)
+      // Sometimes a small delay helps with font rendering in clones
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Capture the container
+      const canvas = await html2canvas(container, {
+        scale: 1, // Exact 1:1 pixel mapping
+        width: targetWidth,
+        height: targetHeight,
+        windowWidth: targetWidth, // Simulate window size to avoid responsive breakpoints
+        windowHeight: targetHeight,
         useCORS: true, 
         allowTaint: true,
         backgroundColor: '#ffffff',
         logging: false,
         imageTimeout: 0,
-        // Compensate for the transform: scale() on the parent if necessary, 
-        // but passing the ref to the inner fixed div usually works directly.
+        scrollX: 0,
+        scrollY: 0,
+        x: 0,
+        y: 0
       });
+
+      // Cleanup
+      document.body.removeChild(container);
 
       const dataUrl = canvas.toDataURL('image/jpeg', 0.95); // High quality JPG
       
