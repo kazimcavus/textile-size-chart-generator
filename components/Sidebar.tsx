@@ -277,7 +277,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   );
 
   return (
-    <div className="w-full lg:w-[500px] h-full flex flex-col bg-white shadow-xl border-r border-gray-200 z-10 relative">
+    <div className="w-full lg:w-[520px] h-full flex flex-col bg-white shadow-xl border-r border-gray-200 z-10 relative">
       <div className="p-5 border-b border-gray-100 bg-gray-50 flex-shrink-0">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900">{formState.brandName}</h1>
         <p className="text-sm text-gray-500">Beden Tablosu Oluşturucu</p>
