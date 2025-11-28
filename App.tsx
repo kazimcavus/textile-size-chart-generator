@@ -51,6 +51,26 @@ function App() {
     loadDefaultLogo();
   }, []);
 
+  const waitForImages = (root: HTMLElement) => {
+    const images = Array.from(root.querySelectorAll('img'));
+    return Promise.all(
+      images.map(img => {
+        if (img.complete && img.naturalWidth !== 0) return Promise.resolve(null);
+        return new Promise(resolve => {
+          const onDone = () => {
+            img.removeEventListener('load', onDone);
+            img.removeEventListener('error', onDone);
+            clearTimeout(timeoutId);
+            resolve(null);
+          };
+          const timeoutId = window.setTimeout(onDone, 2000);
+          img.addEventListener('load', onDone, { once: true });
+          img.addEventListener('error', onDone, { once: true });
+        }).catch(() => null);
+      })
+    );
+  };
+
   const handleDownload = async () => {
     if (!previewRef.current) return;
     
@@ -90,6 +110,7 @@ function App() {
       
       // Wait two animation frames to ensure fonts/layout settle
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      await waitForImages(clone);
 
       // Capture using html-to-image
       const dataUrl = await htmlToImage.toJpeg(clone, {
@@ -113,7 +134,9 @@ function App() {
       const link = document.createElement('a');
       link.download = filename;
       link.href = dataUrl;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
     } catch (error) {
       console.error("Image generation failed:", error);
       alert("Görsel oluşturulurken bir hata oluştu.");

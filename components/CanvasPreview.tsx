@@ -13,7 +13,10 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
   const activeSizes = formState.selectedSizes;
   const hasSizes = activeSizes.length > 0;
   const isLandscape = formState.canvasFormat === 'landscape';
-  const [silhouetteVersion, setSilhouetteVersion] = useState(() => Date.now());
+  const [silhouetteSrc, setSilhouetteSrc] = useState<string | null>(null);
+  const [isSilhouetteLoading, setIsSilhouetteLoading] = useState(false);
+  const silhouetteCache = useRef<Record<string, string>>({});
+  const [logoErrored, setLogoErrored] = useState(false);
   
   // Container to measure available screen space
   const containerRef = useRef<HTMLDivElement>(null);
@@ -60,12 +63,48 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
   }, [CANVAS_WIDTH, CANVAS_HEIGHT]);
 
   useEffect(() => {
-    setSilhouetteVersion(Date.now());
-  }, [currentCategory.id]);
+    setLogoErrored(false);
+  }, [formState.logo]);
 
-  const silhouetteSrc = currentCategory.silhouetteImage
-    ? `${currentCategory.silhouetteImage}${currentCategory.silhouetteImage.includes('?') ? '&' : '?'}v=${silhouetteVersion}`
-    : null;
+  useEffect(() => {
+    let cancelled = false;
+    const loadSilhouette = async () => {
+      const cacheKey = currentCategory.id;
+      if (!currentCategory.silhouetteImage) {
+        setSilhouetteSrc(null);
+        return;
+      }
+      if (silhouetteCache.current[cacheKey]) {
+        setSilhouetteSrc(silhouetteCache.current[cacheKey]);
+        return;
+      }
+      setIsSilhouetteLoading(true);
+      try {
+        const response = await fetch(currentCategory.silhouetteImage, { cache: 'no-store', mode: 'cors' });
+        if (!response.ok) throw new Error('Silhouette fetch failed');
+        const blob = await response.blob();
+        if (cancelled) return;
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          if (cancelled) return;
+          const dataUrl = reader.result as string;
+          silhouetteCache.current[cacheKey] = dataUrl;
+          setSilhouetteSrc(dataUrl);
+          setIsSilhouetteLoading(false);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        if (cancelled) return;
+        setSilhouetteSrc(currentCategory.silhouetteImage);
+        setIsSilhouetteLoading(false);
+      }
+    };
+
+    loadSilhouette();
+    return () => {
+      cancelled = true;
+    };
+  }, [currentCategory.id, currentCategory.silhouetteImage]);
 
   return (
     <div className="flex-1 bg-gray-200 flex flex-col relative h-full overflow-hidden">
@@ -136,11 +175,17 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
               <div className="flex-1 flex flex-col justify-center h-full gap-2">
                  {/* Logo Area */}
                  <div className={`flex items-center justify-start ${isLandscape ? 'min-h-[90px]' : 'min-h-[110px]'}`}>
-                    {formState.logo ? (
+                    {formState.logo && !logoErrored ? (
                         <img 
                           src={formState.logo} 
                           alt="Logo" 
-                          className="w-auto object-contain object-left max-h-full max-w-[500px]" 
+                          className="w-auto object-contain object-left max-h-full max-w-[500px]"
+                          onError={() => {
+                            if (!logoErrored) {
+                              setLogoErrored(true);
+                              setFormState(prev => ({ ...prev, logo: null }));
+                            }
+                          }} 
                         />
                     ) : (
                         <h1 className="text-6xl font-extrabold tracking-widest text-black leading-none whitespace-nowrap">
@@ -244,13 +289,14 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                     <div className="flex-1 border-4 border-dashed border-gray-300 rounded-3xl overflow-hidden bg-white p-4 relative flex items-center justify-center">
                         {silhouetteSrc ? (
                           <img 
-                          key={`${currentCategory.id}-${silhouetteVersion}`}
                           src={silhouetteSrc} 
                           alt="Model Siluet" 
                           crossOrigin="anonymous" 
                           referrerPolicy="no-referrer"
                           className="max-w-full max-h-full object-center mix-blend-multiply opacity-95"
                           />
+                        ) : isSilhouetteLoading ? (
+                          <span className="text-xl text-gray-300 font-medium">Görsel yükleniyor...</span>
                         ) : (
                           <span className="text-3xl text-gray-300 font-medium">Görsel Yok</span>
                         )}
@@ -350,13 +396,14 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                   <div className="w-[55%] h-full border-4 border-dashed border-gray-300 rounded-3xl overflow-hidden bg-white p-4 relative flex items-center justify-center">
                     {silhouetteSrc ? (
                        <img 
-                        key={`${currentCategory.id}-${silhouetteVersion}`}
                         src={silhouetteSrc} 
                         alt="Model Siluet" 
                         crossOrigin="anonymous" 
                         referrerPolicy="no-referrer"
                         className="max-w-full max-h-full object-center mix-blend-multiply opacity-90"
                        />
+                     ) : isSilhouetteLoading ? (
+                       <span className="text-xl text-gray-300 font-medium">Görsel yükleniyor...</span>
                      ) : (
                        <span className="text-3xl text-gray-300 font-medium">Görsel Yok</span>
                      )}
