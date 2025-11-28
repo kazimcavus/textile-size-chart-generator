@@ -62,6 +62,9 @@ function App() {
       const targetWidth = isLandscape ? 1800 : 1200;
       const targetHeight = isLandscape ? 1200 : 1800;
 
+      // Ensure fonts are fully loaded before rendering
+      await document.fonts.ready;
+
       // Create a temporary container to hold the clone
       // This container will be exactly the size of the target image
       // and unaffected by the screen scaling/transform of the preview
@@ -91,7 +94,7 @@ function App() {
       
       // Wait a moment for images in the clone to be "ready" (though they are cached)
       // Sometimes a small delay helps with font rendering in clones
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 250));
 
       // Capture the container
       const canvas = await html2canvas(container, {
