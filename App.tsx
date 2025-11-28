@@ -57,29 +57,25 @@ function App() {
     setIsDownloading(true);
 
     try {
-      // Logic to capture high res image
       const element = previewRef.current;
       
-      // Determine target width based on format
-      // Portrait: 1200x1800
-      // Landscape: 1800x1200
-      const targetWidth = formState.canvasFormat === 'landscape' ? 1800 : 1200;
+      // Since the element inside the scaler is ALREADY 1200px / 1800px wide in CSS pixels,
+      // we don't need to calculate scale based on screen width.
+      // We just tell html2canvas to capture it at scale 1 (1:1 mapping of CSS pixels).
       
-      // Calculate scale factor
-      const scaleFactor = targetWidth / element.offsetWidth;
-
       const canvas = await html2canvas(element, {
-        scale: scaleFactor,
-        useCORS: true, // Important for external images
+        scale: 1, // Capture at native CSS resolution (which is already HD)
+        useCORS: true, 
         allowTaint: true,
-        backgroundColor: '#ffffff', // Ensure white background
+        backgroundColor: '#ffffff',
         logging: false,
         imageTimeout: 0,
+        // Compensate for the transform: scale() on the parent if necessary, 
+        // but passing the ref to the inner fixed div usually works directly.
       });
 
       const dataUrl = canvas.toDataURL('image/jpeg', 0.95); // High quality JPG
       
-      // Create download link
       const filename = formState.modelCode 
         ? `Size-Chart-${formState.modelCode}-${formState.canvasFormat}.jpg` 
         : `Size-Chart-${formState.selectedCategoryId}-${formState.canvasFormat}.jpg`;

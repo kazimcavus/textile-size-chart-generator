@@ -9,7 +9,7 @@ export const CONFIG: AppConfig = {
     {
       id: "pantolon",
       label: "PANTOLON",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=1Zg4e8grTi6L2a0qGrAuwyazrzSxKJ7O3&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=1Zg4e8grTi6L2a0qGrAuwyazrzSxKJ7O3",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Boy", "Bel", "Basen", "Paça", "İç Bacak"],
       fabricProperties: ["Bel", "Boy", "Kumaş Tipi", "Kalınlık", "Dokuma Tipi"]
@@ -17,7 +17,7 @@ export const CONFIG: AppConfig = {
     {
       id: "alt-ust-takim",
       label: "ALT - ÜST TAKIM",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=1ERPxmIBEen9szIu1HCan9rJ8hHka_guF&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=1ERPxmIBEen9szIu1HCan9rJ8hHka_guF",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Üst Parça Boy", "Üst Parça Göğüs", "Alt Parça Boy", "Alt Parça Bel", "Alt Parça Basen"],
       fabricProperties: ["Desen", "Kalıp", "Kumaş Tipi", "Boy", "Dokuma Tipi"]
@@ -25,7 +25,7 @@ export const CONFIG: AppConfig = {
     {
       id: "esofman-takimi",
       label: "EŞOFMAN TAKIMI",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=1FufdcfOhyIcCWRLFmkZobyWErXaEHdrK&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=1FufdcfOhyIcCWRLFmkZobyWErXaEHdrK",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Üst Parça Boy", "Üst Parça Göğüs", "Alt Parça Boy", "Alt Parça Bel", "Alt Parça Basen"],
       fabricProperties: ["Kumaş Tipi", "Alt-Üst Takım", "Boy", "Dokuma Tipi", "Kalıp"]
@@ -33,7 +33,7 @@ export const CONFIG: AppConfig = {
     {
       id: "ceket",
       label: "CEKET",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=1suT05QZ_kW59FbUeMr22eOguYG3XZBTO&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=1suT05QZ_kW59FbUeMr22eOguYG3XZBTO",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Boy", "Göğüs", "Alt Genişlik", "Kol Uzunluk", "Kol Genişlik"],
       fabricProperties: ["Kumaş Tipi", "Boy", "Kalınlık", "Dokuma Tipi", "Kalıp"]
@@ -41,7 +41,7 @@ export const CONFIG: AppConfig = {
     {
       id: "etek",
       label: "ETEK",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=16zoVnQq2yX-x44HP33jinOzMIKSsGANU&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=16zoVnQq2yX-x44HP33jinOzMIKSsGANU",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Boy", "Bel", "Basen", "Alt Genişlik"],
       fabricProperties: ["Boy", "Kumaş Tipi", "Dokuma Tipi", "Kalınlık", "Astar Durumu"]
@@ -49,7 +49,7 @@ export const CONFIG: AppConfig = {
     {
       id: "elbise",
       label: "ELBİSE",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=125puhC2Vo43rNZc75UucN5CVvheUe1gm&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=125puhC2Vo43rNZc75UucN5CVvheUe1gm",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Boy", "Göğüs", "Alt Genişlik", "Bel", "Kol Uzunluk"],
       fabricProperties: ["Kumaş Tipi", "Boy", "Kalıp", "Astar Durumu", "Ürün Detayı"]
@@ -57,7 +57,7 @@ export const CONFIG: AppConfig = {
     {
       id: "t-shirt",
       label: "T-SHIRT",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=1KGmnKcKbiUjb_GjMN3cnr5oCunjT22cM&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=1KGmnKcKbiUjb_GjMN3cnr5oCunjT22cM",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Boy", "Göğüs", "Alt Genişlik", "Kol Genişlik"],
       fabricProperties: ["Dokuma Tipi", "Kumaş Tipi", "Boy", "Yaka Tipi", "Kalıp"]
@@ -65,7 +65,7 @@ export const CONFIG: AppConfig = {
     {
       id: "kaban",
       label: "KABAN",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=13Jzq3cGXE5yLaCVz_7E5QDCyARPgpcxS&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=13Jzq3cGXE5yLaCVz_7E5QDCyARPgpcxS",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Boy", "Göğüs", "Alt Genişlik", "Kol Uzunluk", "Kol Genişlik"],
       fabricProperties: ["Kumaş Tipi", "Kalıp", "Boy", "Dokuma Tipi", "Kalınlık"]
@@ -73,7 +73,7 @@ export const CONFIG: AppConfig = {
     {
       id: "mont",
       label: "MONT",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=1b6JXccIzgahQqGn6VB1FmZ6_dB2vRiWA&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=1b6JXccIzgahQqGn6VB1FmZ6_dB2vRiWA",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Boy", "Göğüs", "Alt Genişlik", "Kol Uzunluk", "Kol Genişlik"],
       fabricProperties: ["Kumaş Tipi", "Boy", "Kapama Şekli", "Dolgu Materyali", "Kalıp"]
@@ -81,7 +81,7 @@ export const CONFIG: AppConfig = {
     {
       id: "sort",
       label: "ŞORT",
-      silhouetteImage: "https://drive.google.com/thumbnail?id=1LE0imq_L_sudL4fckZWRd8BoasJUsWq0&sz=w1000",
+      silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=1LE0imq_L_sudL4fckZWRd8BoasJUsWq0",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Boy", "Bel", "Basen", "Paça", "İç Bacak"],
       fabricProperties: ["Kumaş Tipi", "Bel", "Boy", "Dokuma Tipi", "Kalıp"]
