@@ -134,7 +134,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                           className="w-auto object-contain object-left max-h-full max-w-[500px]" 
                         />
                     ) : (
-                        <h1 className="text-6xl font-extrabold tracking-widest text-black uppercase leading-tight truncate">
+                        <h1 className="text-6xl font-extrabold tracking-widest text-black uppercase leading-none whitespace-nowrap">
                           {formState.brandName}
                         </h1>
                     )}
