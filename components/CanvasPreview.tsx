@@ -165,25 +165,39 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                       <table className="w-full text-center border-collapse table-fixed">
                         <thead>
                           <tr className="bg-black text-white h-[80px]">
-                            <th className="w-[30%] px-8 text-left text-2xl font-bold uppercase tracking-wider border-r border-gray-700 whitespace-nowrap align-middle">Ölçüler (cm)</th>
+                            <th className="w-[30%] px-0 text-left border-r border-gray-700">
+                              <div className="px-8 h-[80px] flex items-center text-left text-2xl font-bold uppercase tracking-wider whitespace-nowrap">
+                                Ölçüler (cm)
+                              </div>
+                            </th>
                             {hasSizes ? activeSizes.map(size => (
-                              <th key={size} className="font-bold text-2xl border-l border-gray-700 align-middle">
-                                {size}
+                              <th key={size} className="px-0 border-l border-gray-700">
+                                <div className="h-[80px] flex items-center justify-center text-2xl font-bold">
+                                  {size}
+                                </div>
                               </th>
                             )) : (
-                              <th className="px-4 italic font-normal text-xl text-gray-400 align-middle">Beden Seçiniz</th>
+                              <th className="px-0">
+                                <div className="h-[80px] flex items-center justify-center px-4 italic font-normal text-xl text-gray-400">
+                                  Beden Seçiniz
+                                </div>
+                              </th>
                             )}
                           </tr>
                         </thead>
                         <tbody>
                           {currentCategory.measurements.map((measurement, idx) => (
                             <tr key={measurement} className={`${idx % 2 === 0 ? "bg-white" : "bg-gray-50"} h-[80px]`}>
-                              <td className="px-8 text-left font-semibold text-gray-800 text-2xl border-r border-gray-200 align-middle">
-                                {measurement}
+                              <td className="px-0 border-r border-gray-200">
+                                <div className="px-8 h-[80px] flex items-center text-left font-semibold text-gray-800 text-2xl">
+                                  {measurement}
+                                </div>
                               </td>
                               {hasSizes && activeSizes.map(size => (
-                                <td key={size} className="text-gray-700 font-medium text-2xl border-l border-gray-100 align-middle">
-                                  {formState.measurements[size]?.[measurement] || '-'}
+                                <td key={size} className="px-0 border-l border-gray-100">
+                                  <div className="h-[80px] flex items-center justify-center text-gray-700 font-medium text-2xl">
+                                    {formState.measurements[size]?.[measurement] || '-'}
+                                  </div>
                                 </td>
                               ))}
                             </tr>
@@ -248,25 +262,39 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                   <table className="w-full text-center border-collapse table-fixed">
                     <thead>
                       <tr className="bg-black text-white h-[90px]">
-                        <th className="w-[35%] px-10 text-left text-3xl font-bold uppercase tracking-wider border-r border-gray-700 whitespace-nowrap align-middle">Ölçüler (cm)</th>
+                        <th className="w-[35%] px-0 text-left border-r border-gray-700">
+                          <div className="px-10 h-[90px] flex items-center text-left text-3xl font-bold uppercase tracking-wider whitespace-nowrap">
+                            Ölçüler (cm)
+                          </div>
+                        </th>
                         {hasSizes ? activeSizes.map(size => (
-                          <th key={size} className="font-bold text-3xl border-l border-gray-700 align-middle">
-                            {size}
+                          <th key={size} className="px-0 border-l border-gray-700">
+                            <div className="h-[90px] flex items-center justify-center text-3xl font-bold">
+                              {size}
+                            </div>
                           </th>
                         )) : (
-                          <th className="px-4 italic font-normal text-2xl text-gray-400 align-middle">Beden Seçiniz</th>
+                          <th className="px-0">
+                            <div className="h-[90px] flex items-center justify-center px-4 italic font-normal text-2xl text-gray-400">
+                              Beden Seçiniz
+                            </div>
+                          </th>
                         )}
                       </tr>
                     </thead>
                     <tbody>
                       {currentCategory.measurements.map((measurement, idx) => (
                         <tr key={measurement} className={`${idx % 2 === 0 ? "bg-white" : "bg-gray-50"} h-[90px]`}>
-                          <td className="px-10 text-left font-semibold text-gray-800 text-3xl border-r border-gray-200 align-middle">
-                            {measurement}
+                          <td className="px-0 border-r border-gray-200">
+                            <div className="px-10 h-[90px] flex items-center text-left font-semibold text-gray-800 text-3xl">
+                              {measurement}
+                            </div>
                           </td>
                           {hasSizes && activeSizes.map(size => (
-                            <td key={size} className="text-gray-700 font-medium text-3xl border-l border-gray-100 align-middle">
-                              {formState.measurements[size]?.[measurement] || '-'}
+                            <td key={size} className="px-0 border-l border-gray-100">
+                              <div className="h-[90px] flex items-center justify-center text-gray-700 font-medium text-3xl">
+                                {formState.measurements[size]?.[measurement] || '-'}
+                              </div>
                             </td>
                           ))}
                         </tr>
@@ -280,7 +308,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                   
                   {/* Specs (45%) */}
                   <div className="w-[45%] flex flex-col gap-6">
-                    <div className="flex-1 bg-zinc-900 text-white rounded-3xl p-10 shadow-xl overflow-hidden flex flex-col">
+                    <div className="flex-1 bg-zinc-900 text-white rounded-3xl p-10 shadow-xl flex flex-col">
                       <h3 className="text-2xl font-bold border-b border-zinc-700 pb-5 mb-8 uppercase tracking-widest text-zinc-400">
                         Ürün Özellikleri
                       </h3>
