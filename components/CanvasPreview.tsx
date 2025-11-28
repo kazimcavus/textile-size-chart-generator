@@ -37,11 +37,8 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
         const scaleY = availableHeight / CANVAS_HEIGHT;
         
         // Fit contained
-        const newScale = Math.min(scaleX, scaleY, 1); // Never scale up beyond 1.0 (optional, but looks sharper)
-        
-        // Actually, for this use case, we might want to scale up if screen is huge, 
-        // but usually we scale down. Let's allow min(scaleX, scaleY).
-        setScale(Math.min(scaleX, scaleY));
+        const newScale = Math.min(scaleX, scaleY);
+        setScale(newScale);
       }
     };
 
@@ -116,8 +113,6 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
           {/* 
             THE FIXED CANVAS 
             This div is exactly 1200x1800 or 1800x1200 pixels internally.
-            Tailwind classes here relate to that huge size.
-            e.g. text-2xl is normal body text on a 1200px wide screen.
           */}
           <div 
             ref={previewRef}
@@ -139,7 +134,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                           className="w-auto object-contain object-left max-h-full max-w-[500px]" 
                         />
                     ) : (
-                        <h1 className="text-7xl font-extrabold tracking-widest text-black uppercase leading-tight line-clamp-1">
+                        <h1 className="text-6xl font-extrabold tracking-widest text-black uppercase leading-tight truncate">
                           {formState.brandName}
                         </h1>
                     )}
@@ -230,7 +225,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                           alt="Model Siluet" 
                           crossOrigin="anonymous" 
                           referrerPolicy="no-referrer"
-                          className="w-full h-full object-contain object-center mix-blend-multiply opacity-95"
+                          className="max-w-full max-h-full object-center mix-blend-multiply opacity-95"
                           />
                         ) : (
                           <span className="text-3xl text-gray-300 font-medium">Görsel Yok</span>
@@ -321,7 +316,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                         alt="Model Siluet" 
                         crossOrigin="anonymous" 
                         referrerPolicy="no-referrer"
-                        className="w-full h-full object-contain object-center mix-blend-multiply opacity-90"
+                        className="max-w-full max-h-full object-center mix-blend-multiply opacity-90"
                        />
                      ) : (
                        <span className="text-3xl text-gray-300 font-medium">Görsel Yok</span>
