@@ -13,6 +13,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
   const activeSizes = formState.selectedSizes;
   const hasSizes = activeSizes.length > 0;
   const isLandscape = formState.canvasFormat === 'landscape';
+  const [silhouetteVersion, setSilhouetteVersion] = useState(() => Date.now());
   
   // Container to measure available screen space
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,6 +58,14 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
       observer.disconnect();
     };
   }, [CANVAS_WIDTH, CANVAS_HEIGHT]);
+
+  useEffect(() => {
+    setSilhouetteVersion(Date.now());
+  }, [currentCategory.id]);
+
+  const silhouetteSrc = currentCategory.silhouetteImage
+    ? `${currentCategory.silhouetteImage}${currentCategory.silhouetteImage.includes('?') ? '&' : '?'}v=${silhouetteVersion}`
+    : null;
 
   return (
     <div className="flex-1 bg-gray-200 flex flex-col relative h-full overflow-hidden">
@@ -233,9 +242,10 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                  {/* Right Column (Image) */}
                  <div className="w-[35%] flex flex-col gap-8">
                     <div className="flex-1 border-4 border-dashed border-gray-300 rounded-3xl overflow-hidden bg-white p-4 relative flex items-center justify-center">
-                        {currentCategory.silhouetteImage ? (
+                        {silhouetteSrc ? (
                           <img 
-                          src={currentCategory.silhouetteImage} 
+                          key={`${currentCategory.id}-${silhouetteVersion}`}
+                          src={silhouetteSrc} 
                           alt="Model Siluet" 
                           crossOrigin="anonymous" 
                           referrerPolicy="no-referrer"
@@ -338,9 +348,10 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
 
                   {/* Image (55%) */}
                   <div className="w-[55%] h-full border-4 border-dashed border-gray-300 rounded-3xl overflow-hidden bg-white p-4 relative flex items-center justify-center">
-                    {currentCategory.silhouetteImage ? (
+                    {silhouetteSrc ? (
                        <img 
-                        src={currentCategory.silhouetteImage} 
+                        key={`${currentCategory.id}-${silhouetteVersion}`}
+                        src={silhouetteSrc} 
                         alt="Model Siluet" 
                         crossOrigin="anonymous" 
                         referrerPolicy="no-referrer"
