@@ -70,8 +70,10 @@ function App() {
       // and unaffected by the screen scaling/transform of the preview
       const container = document.createElement('div');
       container.style.position = 'fixed';
-      container.style.left = '-9999px'; // Render off-screen
+      container.style.left = '0';
       container.style.top = '0';
+      container.style.opacity = '0';
+      container.style.pointerEvents = 'none';
       container.style.width = `${targetWidth}px`;
       container.style.height = `${targetHeight}px`;
       container.style.zIndex = '-9999';
@@ -96,7 +98,7 @@ function App() {
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
       // Capture using html-to-image for faithful rendering
-      const dataUrl = await htmlToImage.toJpeg(container, {
+      const dataUrl = await htmlToImage.toJpeg(clone, {
         quality: 0.95,
         backgroundColor: '#ffffff',
         cacheBust: true,
