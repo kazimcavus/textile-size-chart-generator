@@ -4,8 +4,8 @@ import CanvasPreview from './components/CanvasPreview';
 import { CONFIG } from './constants';
 import { FormState } from './types';
 
-// Declare html2canvas manually since we are using CDN and no @types/html2canvas
-declare const html2canvas: any;
+// html-to-image is loaded via CDN and exposes a global helper
+declare const htmlToImage: any;
 
 function App() {
   const [formState, setFormState] = useState<FormState>({
@@ -92,32 +92,23 @@ function App() {
       container.appendChild(clone);
       document.body.appendChild(container);
       
-      // Wait a moment for images in the clone to be "ready" (though they are cached)
-      // Sometimes a small delay helps with font rendering in clones
-      await new Promise(resolve => setTimeout(resolve, 250));
+      // Wait a tick so layout & fonts settle inside the off-screen DOM
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
 
-      // Capture the container
-      const canvas = await html2canvas(container, {
-        scale: 1, // Exact 1:1 pixel mapping
+      // Capture using html-to-image for faithful rendering
+      const dataUrl = await htmlToImage.toJpeg(container, {
+        quality: 0.95,
+        backgroundColor: '#ffffff',
+        cacheBust: true,
         width: targetWidth,
         height: targetHeight,
-        windowWidth: targetWidth, // Simulate window size to avoid responsive breakpoints
-        windowHeight: targetHeight,
-        useCORS: true, 
-        allowTaint: true,
-        backgroundColor: '#ffffff',
-        logging: false,
-        imageTimeout: 0,
-        scrollX: 0,
-        scrollY: 0,
-        x: 0,
-        y: 0
+        canvasWidth: targetWidth,
+        canvasHeight: targetHeight,
+        pixelRatio: 1
       });
 
       // Cleanup
       document.body.removeChild(container);
-
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.95); // High quality JPG
       
       const filename = formState.modelCode 
         ? `Size-Chart-${formState.modelCode}-${formState.canvasFormat}.jpg` 

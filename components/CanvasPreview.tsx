@@ -166,19 +166,19 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                         <thead>
                           <tr className="bg-black text-white h-[80px]">
                             <th className="w-[30%] px-0 text-left border-r border-gray-700">
-                              <div className="px-8 h-[80px] flex items-center text-left text-2xl font-bold uppercase tracking-wider whitespace-nowrap">
+                              <div className="px-8 h-[80px] flex items-center text-left text-2xl font-bold uppercase tracking-wider whitespace-nowrap leading-none">
                                 Ölçüler (cm)
                               </div>
                             </th>
                             {hasSizes ? activeSizes.map(size => (
                               <th key={size} className="px-0 border-l border-gray-700">
-                                <div className="h-[80px] flex items-center justify-center text-2xl font-bold">
+                                <div className="h-[80px] flex items-center justify-center text-2xl font-bold leading-none">
                                   {size}
                                 </div>
                               </th>
                             )) : (
                               <th className="px-0">
-                                <div className="h-[80px] flex items-center justify-center px-4 italic font-normal text-xl text-gray-400">
+                                <div className="h-[80px] flex items-center justify-center px-4 italic font-normal text-xl text-gray-400 leading-none">
                                   Beden Seçiniz
                                 </div>
                               </th>
@@ -189,13 +189,13 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                           {currentCategory.measurements.map((measurement, idx) => (
                             <tr key={measurement} className={`${idx % 2 === 0 ? "bg-white" : "bg-gray-50"} h-[80px]`}>
                               <td className="px-0 border-r border-gray-200">
-                                <div className="px-8 h-[80px] flex items-center text-left font-semibold text-gray-800 text-2xl">
+                                <div className="px-8 h-[80px] flex items-center text-left font-semibold text-gray-800 text-2xl leading-none">
                                   {measurement}
                                 </div>
                               </td>
                               {hasSizes && activeSizes.map(size => (
                                 <td key={size} className="px-0 border-l border-gray-100">
-                                  <div className="h-[80px] flex items-center justify-center text-gray-700 font-medium text-2xl">
+                                  <div className="h-[80px] flex items-center justify-center text-gray-700 font-medium text-2xl leading-none">
                                     {formState.measurements[size]?.[measurement] || '-'}
                                   </div>
                                 </td>
@@ -263,19 +263,19 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                     <thead>
                       <tr className="bg-black text-white h-[90px]">
                         <th className="w-[35%] px-0 text-left border-r border-gray-700">
-                          <div className="px-10 h-[90px] flex items-center text-left text-3xl font-bold uppercase tracking-wider whitespace-nowrap">
+                          <div className="px-10 h-[90px] flex items-center text-left text-3xl font-bold uppercase tracking-wider whitespace-nowrap leading-none">
                             Ölçüler (cm)
                           </div>
                         </th>
                         {hasSizes ? activeSizes.map(size => (
                           <th key={size} className="px-0 border-l border-gray-700">
-                            <div className="h-[90px] flex items-center justify-center text-3xl font-bold">
+                            <div className="h-[90px] flex items-center justify-center text-3xl font-bold leading-none">
                               {size}
                             </div>
                           </th>
                         )) : (
                           <th className="px-0">
-                            <div className="h-[90px] flex items-center justify-center px-4 italic font-normal text-2xl text-gray-400">
+                            <div className="h-[90px] flex items-center justify-center px-4 italic font-normal text-2xl text-gray-400 leading-none">
                               Beden Seçiniz
                             </div>
                           </th>
@@ -286,13 +286,13 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                       {currentCategory.measurements.map((measurement, idx) => (
                         <tr key={measurement} className={`${idx % 2 === 0 ? "bg-white" : "bg-gray-50"} h-[90px]`}>
                           <td className="px-0 border-r border-gray-200">
-                            <div className="px-10 h-[90px] flex items-center text-left font-semibold text-gray-800 text-3xl">
+                            <div className="px-10 h-[90px] flex items-center text-left font-semibold text-gray-800 text-3xl leading-none">
                               {measurement}
                             </div>
                           </td>
                           {hasSizes && activeSizes.map(size => (
                             <td key={size} className="px-0 border-l border-gray-100">
-                              <div className="h-[90px] flex items-center justify-center text-gray-700 font-medium text-3xl">
+                              <div className="h-[90px] flex items-center justify-center text-gray-700 font-medium text-3xl leading-none">
                                 {formState.measurements[size]?.[measurement] || '-'}
                               </div>
                             </td>
