@@ -134,7 +134,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
                           className="w-auto object-contain object-left max-h-full max-w-[500px]" 
                         />
                     ) : (
-                        <h1 className="text-6xl font-extrabold tracking-widest text-black uppercase leading-none whitespace-nowrap">
+                        <h1 className="text-6xl font-extrabold tracking-widest text-black leading-none whitespace-nowrap">
                           {formState.brandName}
                         </h1>
                     )}
@@ -358,7 +358,7 @@ const CanvasPreview: React.FC<CanvasPreviewProps> = ({ config, formState, setFor
             {/* --- FOOTER (Fixed Height) --- */}
             {/* Portrait: 80px, Landscape: 60px */}
             <footer className={`bg-black text-white flex items-center justify-center shrink-0 z-10 ${isLandscape ? 'h-[60px]' : 'h-[80px]'}`}>
-              <p className={`${isLandscape ? 'text-xl' : 'text-2xl'} font-light tracking-[0.2em] opacity-80 uppercase`}>
+              <p className={`${isLandscape ? 'text-xl' : 'text-2xl'} font-light tracking-[0.2em] opacity-80`}>
                 {formState.websiteUrl}
               </p>
             </footer>
