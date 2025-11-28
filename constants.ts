@@ -16,7 +16,7 @@ export const CONFIG: AppConfig = {
     },
     {
       id: "alt-ust-takim",
-      label: "ALT - ÜST TAKIM",
+      label: "ALT-ÜST TAKIM",
       silhouetteImage: "https://wsrv.nl/?url=https://drive.google.com/uc?id=1ERPxmIBEen9szIu1HCan9rJ8hHka_guF",
       sizes: ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"],
       measurements: ["Üst Parça Boy", "Üst Parça Göğüs", "Alt Parça Boy", "Alt Parça Bel", "Alt Parça Basen"],
